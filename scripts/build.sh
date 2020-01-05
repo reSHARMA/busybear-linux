@@ -80,14 +80,8 @@ test -x build/linux-${LINUX_KERNEL_VERSION}/vmlinux || (
 test -d build/riscv-pk || mkdir build/riscv-pk
 test -x build/riscv-pk/bbl || (
     cd build/riscv-pk
-    ../../src/riscv-pk/configure \
+        ../../../riscv-pk/configure \
         --host=${CROSS_COMPILE%-} \
         --with-payload=../linux-${LINUX_KERNEL_VERSION}/vmlinux
     make -j$(nproc)
 )
-
-#
-# create filesystem image
-#
-sudo env PATH=${PATH} UID=$(id -u) GID=$(id -g) \
-./scripts/image.sh
